@@ -1,0 +1,13 @@
+.products-container {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background-color: lightgray;
+}
+
+.product-item {
+    display: flex;
+    flex-direction: row;
+    margin: 10px 20px;
+    justify-content: space-around;
+}
