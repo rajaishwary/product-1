@@ -37,11 +37,11 @@ class Products extends Component {
   };
 
   render() {
-    console.log(this.props.products);
     return (
       <div>
         {this.hasData ? (
           <div className="products-container">
+            <h3>{"Product List"}</h3>
             <ProductHeader />
             {this.productsList()}
           </div>

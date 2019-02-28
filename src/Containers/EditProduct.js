@@ -42,12 +42,12 @@ class EditProduct extends Component {
     const { pricingTier } = this.state.product;
     const optionsArr = this.props.pricingInfo[pricingTier];
     return (
-      <select>
+      <select className="drop-down" onChange={e => this.handleChange("priceRange", e.target.value)}>
         {optionsArr.map((opt, id) => (
           <option
             key={id}
             value={`${opt}`}
-            onChange={e => this.handleChange("pricingTier", e.target.value)}
+            selected={opt === this.state.product.priceRange}
           >
             {opt}
           </option>
@@ -61,54 +61,69 @@ class EditProduct extends Component {
     return (
       product && (
         <form className="edit-product">
-          {"Edit Product"}
+          <h3>{"Edit Product"}</h3>
+          <label>Name</label>
           <input
+            className="text-input"
             name="name"
             value={product.name}
             onChange={e => this.handleChange("name", e.target.value)}
           />
+          <label>Weight</label>
           <input
+            className="text-input"
             name="weight"
             value={product.weight}
             onChange={e => this.handleChange("weight", e.target.value)}
           />
+          <label>Availability</label>
           <input
+            className="text-input"
             name="availability"
             value={product.availability}
             onChange={e => this.handleChange("availability", e.target.value)}
           />
+          <label>Product Url</label>
           <input
+            className="text-input"
             name="productUrl"
             value={product.productUrl}
             onChange={e => this.handleChange("productUrl", e.target.value)}
           />
-          <input
-            type="radio"
-            name="infotype"
-            value="budget"
-            label="budget"
-            onChange={e => this.handleChange("pricingTier", "budget")}
-            checked={product.pricingTier === "budget"}
-          />
-          <label for="budget">Budget</label>
-          <input
-            type="radio"
-            name="infotype"
-            value="premier"
-            label="premier"
-            onChange={e => this.handleChange("pricingTier", "premier")}
-            checked={product.pricingTier === "premier"}
-          />
-          <label for="premier">Premier</label>
+          <div className="radio-btn-container">
+            <input
+              type="radio"
+              name="infotype"
+              value="budget"
+              label="budget"
+              onChange={e => this.handleChange("pricingTier", "budget")}
+              checked={product.pricingTier === "budget"}
+            />
+            <label for="budget">Budget</label>
+            <input
+              type="radio"
+              name="infotype"
+              value="premier"
+              label="premier"
+              onChange={e => this.handleChange("pricingTier", "premier")}
+              checked={product.pricingTier === "premier"}
+            />
+            <label for="premier">Premier</label>
+          </div>
+          <label>{"Price Range"}</label>
           {this.dropDown()}
-          <input
-            type="checkbox"
-            name="isEditable"
-            checked={product.isEditable}
-            onChange={e => this.handleChange("isEditable", !product.isEditable)}
-          />
-          <label for="isEditable">isEditable</label>
-          <button onClick={e => this.handleSubmit(e)}>{"Update"}</button>
+          <div className="editable-container">
+            <input
+              type="checkbox"
+              name="isEditable"
+              checked={product.isEditable}
+              onChange={e =>
+                this.handleChange("isEditable", !product.isEditable)
+              }
+            />
+            <label for="isEditable">isEditable</label>
+          </div>
+          <button className="update-btn" onClick={e => this.handleSubmit(e)}>{"Update"}</button>
         </form>
       )
     );
@@ -116,7 +131,6 @@ class EditProduct extends Component {
 }
 
 function mapStateToProps({ products }) {
-  console.log(products);
   return {
     product: products.product,
     pricingInfo: products.pricingInfo
