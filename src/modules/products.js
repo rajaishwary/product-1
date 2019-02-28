@@ -97,7 +97,8 @@ export default function products(state = initialState, action) {
     }
 
     case EDIT_PRODUCT: {
-      const productToEdit = state.products.find(p => p.name === action.data);
+      const products = JSON.parse(localStorage.getItem("products"));
+      const productToEdit = products.find(p => p.name === action.data);
       return { ...state, product: productToEdit };
     }
 

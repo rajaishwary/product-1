@@ -1,15 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateProduct, getPricingInfo } from "../modules/products";
+import { editProduct, updateProduct, getPricingInfo } from "../modules/products";
 import "./styles.css";
 
 class EditProduct extends Component {
   constructor(props) {
     super(props);
-    this.nameRef = null;
-    this.weightRef = null;
-    this.availabilityRef = null;
-    this.productUrlRef = null;
     this.state = {
       product: props.product || null,
       errors: []
@@ -17,7 +13,13 @@ class EditProduct extends Component {
   }
 
   componentDidMount() {
+    const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
+    this.props.dispatch(editProduct(selectedProduct));
     this.props.dispatch(getPricingInfo());
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ product: nextProps.product });
   }
 
   handleSubmit = e => {

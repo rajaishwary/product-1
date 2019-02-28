@@ -27,6 +27,7 @@ class Products extends Component {
   editProduct = name => {
     this.props.history.push('/edit-product');
     this.props.dispatch(editProduct(name));
+    localStorage.setItem("selectedProduct", JSON.stringify(name));
   };
 
   productsList = () => {
