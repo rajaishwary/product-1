@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./product-item.css";
-import products from "../modules/products";
 
 const ProductItem = ({ product, editProduct }) => {
   return (

@@ -16,7 +16,6 @@ export function getProducts() {
   return async (dispatch, getState) => {
     try {
       const productsInMem = JSON.parse(localStorage.getItem("products"));
-      console.log(productsInMem);
       if(!!productsInMem) {
         dispatch({
           type: GET_PRODUCTS,

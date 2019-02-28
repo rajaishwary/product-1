@@ -7,7 +7,7 @@ const ProductHeader = () => {
       <p>{"Name"}</p>
       <p>{"Weight"}</p>
       <p>{"Availability"}</p>
-      <div>{"Editable"}</div>
+      <p>{"Editable"}</p>
     </div>
   );
 };

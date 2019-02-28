@@ -41,7 +41,7 @@ class Products extends Component {
       <div>
         {this.hasData ? (
           <div className="products-container">
-            <h3>{"Product List"}</h3>
+            <h3 className="list-title">{"Product List"}</h3>
             <ProductHeader />
             {this.productsList()}
           </div>
