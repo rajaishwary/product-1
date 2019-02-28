@@ -4,10 +4,10 @@ import "./product-item.css";
 const ProductItem = ({ product, editProduct }) => {
   return (
     <div className="product-item">
-      <p>{product.name}</p>
-      <p>{product.weight}</p>
-      <p>{product.availability}</p>
-      <div>{product.isEditable ? <button onClick={() => editProduct(product.name)}>{"Edit"}</button> : null}</div>
+      <span className="item-col">{product.name}</span>
+      <span className="item-col">{product.weight}</span>
+      <span className="item-col">{product.availability}</span>
+      <div className="item-col">{product.isEditable ? <button onClick={() => editProduct(product.name)}>{"Edit"}</button> : null}</div>
     </div>
   );
 };

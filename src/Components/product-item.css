@@ -4,9 +4,22 @@
     width: 100%;
 }
 
+.header {
+    background-color: lightgray;
+}
+
 .product-item {
     display: flex;
     flex-direction: row;
     margin: 10px 20px;
+    padding: 10px 0;
     justify-content: space-around;
+    border-bottom: 1px solid lightgray;
+}
+
+.item-col {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
