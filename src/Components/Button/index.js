@@ -8,6 +8,8 @@ export default class Button extends React.Component {
     switch(type) {
       default:
       case 'primary': return "button__primary";
+      case 'secondary': return "button__secondary";
+      case 'active': return "button__active";
       case 'danger': return "button__danger";
     }
   }

@@ -5,6 +5,15 @@
     height: 60px;
     background-color: #1f2533;
     color: #fff;
+    justify-content: space-between;
+    .action-btns {
+      display: flex;
+      flex-direction: row;
+    }
+    .dropdowns {
+      display: flex;
+      flex-direction: row;
+    }
   }
   .applied-filters {
     display: flex;

@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { getTrailers } from "../../modules/trailers";
-import { Button } from "../../Components";
+import { Button, DropDown } from "../../Components";
 import "./styles.scss";
 
 class Trailers extends React.Component {
@@ -26,9 +26,24 @@ class Trailers extends React.Component {
     return (
       <div className="main-container trailers">
         <div className="filters-header">
-          <Button onClick={this.goToHome}>{"Home"}</Button>
-          <Button>{"Comming Soon"}</Button>
-          <Button>{"Now Showing"}</Button>
+          <div className="action-btns">
+            <Button onClick={this.goToHome}>{"Home"}</Button>
+            <Button type="active">{"Coming Soon"}</Button>
+            <Button type="secondary">{"Now Showing"}</Button>
+          </div>
+          <div className="dropdowns">
+            <DropDown selected={"Fresh"} items={["Fresh", "Popular"]} />
+            <DropDown
+              multi
+              selected={["Hindi", "English"]}
+              items={["Hindi", "English", "Bengali"]}
+            />
+            <DropDown
+              multi
+              selected={["Genre 1"]}
+              items={["Genre 1", "Genre 2", "Genre 3"]}
+            />
+          </div>
         </div>
         <div className="applied-filters">{"filters applied"}</div>
         <div className="trailers-container">
