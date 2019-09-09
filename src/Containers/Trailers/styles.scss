@@ -17,12 +17,25 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    .trailer {
+    justify-content: center;
+    background-color: #333644;
+    .card {
+      display: flex;
+      flex-direction: column;
+      margin: 15px 20px;
+      overflow: hidden;
       width: 200px;
-      height: 300px;
-      background-color: #1f2533;
-      margin: 5px;
-      color: #fff;
+      .card-img {
+        width: 200px;
+        height: 300px;
+        background-color: #1f2533;
+        color: #fff;
+      }
+      .card-details {
+        padding: 5px;
+        min-height: 50px;
+        color: #fff;
+      }
     }
   }
 }

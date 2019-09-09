@@ -14,6 +14,10 @@ class Trailers extends React.Component {
     this.props.dispatch(getTrailers());
   }
 
+  goToHome = () => {
+    this.props.history.replace("/");
+  };
+
   get trailers() {
     return !!this.props.trailers ? Object.values(this.props.trailers) : [];
   }
@@ -22,18 +26,26 @@ class Trailers extends React.Component {
     return (
       <div className="main-container trailers">
         <div className="filters-header">
+          <Button onClick={this.goToHome}>{"Home"}</Button>
           <Button>{"Comming Soon"}</Button>
           <Button>{"Now Showing"}</Button>
         </div>
         <div className="applied-filters">{"filters applied"}</div>
         <div className="trailers-container">
-        {this.trailers.length
-          ? this.trailers.map(trailer => (
-              <div key={trailer.EventCode} className="trailer">{trailer.EventTitle}</div>
-            ))
-          : null}
+          {this.trailers.length
+            ? this.trailers.map(trailer => (
+                <div className="card" key={trailer.EventCode}>
+                  <div
+                    className="card-img"
+                    style={{
+                      backgroundImage: `url(https://in.bmscdn.com/events/moviecard/${trailer.EventCode}.jpg)`
+                    }}
+                  />
+                  <div className="card-details">{trailer.EventTitle}</div>
+                </div>
+              ))
+            : null}
         </div>
-
       </div>
     );
   }
