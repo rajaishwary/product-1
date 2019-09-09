@@ -4,15 +4,14 @@ import { Button } from "../../Components";
 import "./styles.scss";
 
 class RouteButtons extends React.Component {
-
   handleClick = () => {
-    this.props.history.push('/trailers');
-  }
+    this.props.history.push("/trailers");
+  };
 
   render() {
     return (
       <div className="buttons-container">
-          <Button onClick={this.handleClick}>{"Trailers"}</Button>
+        <Button onClick={this.handleClick}>{"Trailers"}</Button>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { getTrailers } from "../../modules/trailers";
+import { getTrailers, updateFilters } from "../../modules/trailers";
 import { Button, DropDown } from "../../Components";
 import "./styles.scss";
 
@@ -22,26 +22,49 @@ class Trailers extends React.Component {
     return !!this.props.trailers ? Object.values(this.props.trailers) : [];
   }
 
+  handleSelectFilter = name => value => {
+    this.props.dispatch(updateFilters({ [name]: value }));
+  };
+
   render() {
+    const { filters, languages, genres } = this.props;
     return (
       <div className="main-container trailers">
         <div className="filters-header">
           <div className="action-btns">
             <Button onClick={this.goToHome}>{"Home"}</Button>
-            <Button type="active">{"Coming Soon"}</Button>
-            <Button type="secondary">{"Now Showing"}</Button>
+            <Button
+              type="active"
+              onClick={() => this.handleSelectFilter("mode")("COMING_SOON")}
+            >
+              {"Coming Soon"}
+            </Button>
+            <Button
+              type="secondary"
+              onClick={() => this.handleSelectFilter("mode")("NOW_SHOWING")}
+            >
+              {"Now Showing"}
+            </Button>
           </div>
           <div className="dropdowns">
-            <DropDown selected={"Fresh"} items={["Fresh", "Popular"]} />
             <DropDown
-              multi
-              selected={["Hindi", "English"]}
-              items={["Hindi", "English", "Bengali"]}
+              selected={filters.popularity}
+              items={["Fresh", "Popular"]}
+              onSelect={value => this.handleSelectFilter("popularity")(value)}
             />
             <DropDown
               multi
-              selected={["Genre 1"]}
-              items={["Genre 1", "Genre 2", "Genre 3"]}
+              selected={filters.languages}
+              placeholder={"All languages"}
+              items={languages}
+              onSelect={value => this.handleSelectFilter("languages")(value)}
+            />
+            <DropDown
+              multi
+              selected={filters.genres}
+              placeholder={"All genres"}
+              items={genres}
+              onSelect={value => this.handleSelectFilter("genres")(value)}
             />
           </div>
         </div>
@@ -53,7 +76,9 @@ class Trailers extends React.Component {
                   <div
                     className="card-img"
                     style={{
-                      backgroundImage: `url(https://in.bmscdn.com/events/moviecard/${trailer.EventCode}.jpg)`
+                      backgroundImage: `url(https://in.bmscdn.com/events/moviecard/${
+                        trailer.EventCode
+                      }.jpg)`
                     }}
                   />
                   <div className="card-details">{trailer.EventTitle}</div>
@@ -69,7 +94,9 @@ class Trailers extends React.Component {
 function mapStateToProps({ trailers }) {
   return {
     trailers: trailers.trailers,
-    languages: trailers.languages
+    languages: trailers.languages,
+    genres: trailers.genres,
+    filters: trailers.filters
   };
 }
 

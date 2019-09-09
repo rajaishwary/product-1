@@ -3,12 +3,20 @@ import classnames from "classnames";
 import "./styles.scss";
 
 class DropDown extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      showMenu: false
+      showMenu: false,
+      items: props.items || [],
+      selected: props.selected || []
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.items.length !== this.props.items.length) {
+      this.setState({ items: this.props.items });
+    }
   }
 
   showMenu = event => {
@@ -28,13 +36,35 @@ class DropDown extends Component {
     return this.props.multi || false;
   }
 
+  handleSelect = item => {
+    if (this.isMultiSelect) {
+      let selectedArr = this.state.selected.slice(0);
+      if (selectedArr.includes(item)) {
+        const itemIndex = selectedArr.indexOf(item);
+        selectedArr.splice(itemIndex, 1);
+      } else {
+        selectedArr.push(item);
+      }
+      this.setState({ selected: selectedArr }, () =>
+        this.props.onSelect(selectedArr)
+      );
+    } else {
+      this.setState({ selected: item }, () => this.props.onSelect(item));
+    }
+  };
+
   render() {
-    const { selected, items } = this.props;
+    const { selected, items } = this.state;
+    const { placeholder } = this.props;
     return (
       <div className="dropdown" onMouseLeave={this.closeMenu}>
         <div className="dropbtn" onMouseEnter={this.showMenu}>
-          {this.isMultiSelect ? selected.join(",") : selected}
-          <i class="material-icons">keyboard_arrow_down</i>
+          <span>
+            {this.isMultiSelect
+              ? selected.length ? selected.join(",") : placeholder
+              : selected}
+          </span>
+          <i className="material-icons">keyboard_arrow_down</i>
         </div>
 
         {this.state.showMenu ? (
@@ -45,11 +75,15 @@ class DropDown extends Component {
             }}
           >
             {items.map((item, index) => (
-              <div className={classnames("item", {'item__item-selected': selected.includes(item)})} key={index}>
+              <div
+                className={classnames("item", {
+                  "item__item-selected": selected.includes(item)
+                })}
+                key={index}
+                onClick={() => this.handleSelect(item)}
+              >
                 {this.isMultiSelect ? (
-                  <i
-                    className={classnames("material-icons")}
-                  >
+                  <i className={classnames("material-icons")}>
                     {selected.includes(item) ? "check_box" : "crop_square"}
                   </i>
                 ) : null}
