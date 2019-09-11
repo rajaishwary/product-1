@@ -11,10 +11,16 @@
     min-height: 80vh;
     flex-direction: column;
     color: #fff;
+    .instructions {
+      margin: 40px;
+      width: 400px;
+    }
     .bar {
       height: 35px;
       width: 400px;
-      color: black;
+    }
+    .btn {
+      color: #fff;
     }
   }
 }
