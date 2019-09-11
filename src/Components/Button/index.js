@@ -25,10 +25,10 @@ export default class Button extends React.Component {
   };
 
   render() {
-    const { type } = this.props;
+    const { type, className="" } = this.props;
     return (
       <button
-        className={classnames("button", this.getClassName(type))}
+        className={classnames("button", this.getClassName(type), className)}
         onClick={this.handleClick}
       >
         {this.props.children || "Add Text"}
