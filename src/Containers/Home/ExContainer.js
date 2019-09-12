@@ -9,17 +9,26 @@ export default class ExContainer extends React.Component {
     this.state = {
       value: "",
       error: { dupsInNums: [], dupsInRange: {}, result: [] },
+      displayResults: []
     };
   }
 
   handleChange = event => {
     const text = event.target.value;
     const error = runValidation(text);
-    this.setState({ value: text, error });
+    this.setState({ value: text, error, displayResults: [] });
+  };
+
+  onButtonClick = () => {
+    const { result } = this.state.error;
+    this.setState({ displayResults: result });
   };
 
   render() {
-    const { error: { dupsInNums, dupsInRange, result } } = this.state;
+    const {
+      error: { dupsInNums, dupsInRange, result },
+      displayResults
+    } = this.state;
     return (
       <div className="ex-container">
         <div className="instructions">
@@ -29,12 +38,16 @@ export default class ExContainer extends React.Component {
         </div>
         <React.Fragment>
           <input className="bar" value={this.state.value} onChange={event => this.handleChange(event)} />
-          {dupsInNums.length || Object.keys(dupsInRange).length || result.length ? (<React.Fragment>
-            <div>Duplicates numbers: {dupsInNums.join(", ") || "--"}</div>
-            <div>Duplicates in range: {Object.keys(dupsInRange).map(range => dupsInRange[range].join(", ")) || "--"}</div>
-            <div>Result: {result.join(", ")}</div>
-          </React.Fragment>) : null}
-          <Button className="bar btn">{"GET RESULTS"}</Button>
+          {dupsInNums.length || Object.keys(dupsInRange).length || result.length ? (
+            <React.Fragment>
+              <div>Duplicates numbers: {dupsInNums.join(", ") || "--"}</div>
+              <div>
+                Duplicates in range: {Object.keys(dupsInRange).map(range => dupsInRange[range].join(", ")) || "--"}
+              </div>
+            </React.Fragment>
+          ) : null}
+          <Button className="bar btn" onClick={this.onButtonClick}>{"GET RESULTS"}</Button>
+          <div className="results">Result: {displayResults.join(", ")}</div>
         </React.Fragment>
       </div>
     );

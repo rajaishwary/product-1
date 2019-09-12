@@ -52,7 +52,7 @@ export const runValidation = str => {
         }
         return acc;
       }, [])
-  )].concat(nums))].slice().sort((a, b) => a < b);
+  )].concat(nums))].sort((a, b) => a - b);
   
   return { dupsInNums, dupsInRange, result };
 };
