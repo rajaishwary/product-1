@@ -42,7 +42,7 @@
     background-color: #333644;
     .card-wrapper {
       display: flex;
-      width: 16.5%;
+      width: calc(16.5% - 6px);
       display: block;
       min-height: 1px;
       box-sizing: border-box;
